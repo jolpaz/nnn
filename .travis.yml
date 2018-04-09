@@ -26,7 +26,8 @@ before_deploy:
   - packagecore -o dist/ "${TRAVIS_TAG#v}"
   - cd ..
   - tar --exclude="./nnn/dist" --exclude="./nnn/.git" --exclude="./nnn/.gitignore" --exclude="./nnn/.travis.yml" --exclude="./nnn/packagecore.yaml" -czf nnn-${TRAVIS_TAG}.tar.gz nnn
-  - mv nnn-${TRAVIS_TAG}.tar.gz nnn/dist/
+  - cd nnn
+  - mv ../nnn-${TRAVIS_TAG}.tar.gz dist/
 deploy:
   provider: releases
   api_key:
@@ -34,7 +35,6 @@ deploy:
   file_glob: true
   file:
     - dist/*
-    - ${TRAVIS_BUILD_DIR}${REPO}-${TRAVIS_TAG}.tar.gz ${REPO}
   skip_cleanup: true
   on:
     condition:
