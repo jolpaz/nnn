@@ -4,7 +4,7 @@ services:
   - docker
 env:
   global:
-    - BIN_NAME=nnn
+    - REPO=nnn
 matrix:
   include:
     - os: linux
@@ -23,15 +23,15 @@ script:
   - make clean;
 before_deploy:
   - cd ..
-  - rm -rf $BIN_NAME/.git
-  - tar -czf $BIN_NAME-${TRAVIS_TAG}.tar.gz $BIN_NAME
-  - cd $BIN_NAME
+  - rm -rf $REPO/.git
+  - tar -czf $REPO-${TRAVIS_TAG}.tar.gz $REPO
+  - cd $REPO
   - unset CFLAGS
   - sudo apt-get update -qy
   - sudo apt-get install -qy python3 python3-pip
   - sudo python3 -m pip install packagecore
   - packagecore -o dist/ "${TRAVIS_TAG#v}"
-  - mv ../$BIN_NAME-${TRAVIS_TAG}.tar.gz dist/
+  - mv ../$REPO-${TRAVIS_TAG}.tar.gz dist/
 deploy:
   provider: releases
   api_key:
