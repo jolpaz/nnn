@@ -25,7 +25,7 @@ before_deploy:
   - sudo python3 -m pip install packagecore
   - packagecore -o dist/ "${TRAVIS_TAG#v}"
   - cd ..
-  - tar --exclude="./nnn/dist" --exclude="./nnn/.git" --exclude="./nnn/.gitignore" --exclude="./nnn/.travis.yml" --exclude="./nnn/packagecore.yaml" -czf nnn-${TRAVIS_TAG}.tar.gz nnn
+  - tar --exclude='./nnn/dist' --exclude='./nnn/.git' --exclude='./nnn/.gitignore' --exclude='./nnn/.travis.yml' --exclude='./nnn/packagecore.yaml' -czf nnn-${TRAVIS_TAG}.tar.gz nnn
   - cd nnn
   - mv ../nnn-${TRAVIS_TAG}.tar.gz dist/
 deploy:
