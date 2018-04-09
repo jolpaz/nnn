@@ -20,6 +20,7 @@ script:
   - make clean;
 before_deploy:
   - cd ..
+  - rm -rf nnn/.git
   - tar -czf nnn-${TRAVIS_TAG}.tar.gz nnn
   - cd nnn
   - unset CFLAGS
