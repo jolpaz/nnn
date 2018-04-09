@@ -19,15 +19,14 @@ script:
   - make clean; make;
   - make clean;
 before_deploy:
-  - cd ..
-  - tar --exclude="./nnn/dist" --exclude="./nnn/.git" --exclude="./nnn/.gitignore" --exclude="./nnn/.travis.yml" --exclude="./nnn/packagecore.yaml" -czf nnn-${TRAVIS_TAG}.tar.gz nnn
-  - cd nnn
   - unset CFLAGS
   - sudo apt-get update -qy
   - sudo apt-get install -qy python3 python3-pip
   - sudo python3 -m pip install packagecore
   - packagecore -o dist/ "${TRAVIS_TAG#v}"
-  - mv ../nnn-${TRAVIS_TAG}.tar.gz dist/
+  - cd ..
+  - tar --exclude="./nnn/dist" --exclude="./nnn/.git" --exclude="./nnn/.gitignore" --exclude="./nnn/.travis.yml" --exclude="./nnn/packagecore.yaml" -czf nnn-${TRAVIS_TAG}.tar.gz nnn
+  - mv nnn-${TRAVIS_TAG}.tar.gz nnn/dist/
 deploy:
   provider: releases
   api_key:
